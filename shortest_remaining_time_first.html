@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shortest Remaining Time First Scheduling Algorithm</title>
+    <link href="css/index.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Shortest Remaining Time First Scheduling Algorithm:</h1>
+    <section id="introdunction">
+        <h2>Introduction:</h2>
+        <p>
+            Shortest Remaining Time First (SRTF) is the preemptive version of Shortest Job Next (SJN) algorithm, where the processor
+            is allocated to the job closest to completion.
+            <br/><br/>
+            This algorithm requires advanced concept and knowledge of CPU time required to process the job in an interactive system,
+            and hence can’t be implemented there. But, in a batch system where it is desirable to give preference to short jobs, SRT
+            algorithm is used.
+            <br/><br/>
+            However, SRT involves more overheads than SJN, as the OS is required to frequently monitor the CPU time of the jobs in
+            the READY queue and perform context switching.
+        </p>    
+    </section>
+    <section id="demo">
+        <h2>Demo:</h2>
+        <p>Note: Number of <b>Arrival Times</b> must be equal to the number of <b>Burst Times</b></p>
+        <form id="form">
+            <div id="field">
+                <label for="arrival_times">Enter Process Arrival Times(space separated):</label>
+                <input type="text" id="arrival_times" placeholder="Arrival Times (1 2 3 4 5)" value="2 5 4 3 1" required />
+            </div>
+            <br>
+            <div id="field">
+                <label for="burst_times">Enter Process Burst Times(space separated):</label>
+                <input type="text" id="burst_times" placeholder="Burst Times (2 3 4 5 6)" value="4 1 2 3 4" required />
+            </div>
+            <br>
+            <button>Submit</button>
+        </form>
+        <div id="table_container"></div>
+    </section>
+    <script src="./utils/shortest_remaining_time_first.js"></script>
+</body>
+</html>

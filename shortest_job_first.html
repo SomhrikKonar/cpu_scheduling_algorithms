@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shortest Job First Scheduling Algorithm</title>
+    <link href="css/index.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Shortest Job First Scheduling Algorithm:</h1>
+    <section id="introdunction">
+        <h2>Introduction:</h2>
+        <p>The shortest job first (SJF) or shortest job next, is a scheduling policy that selects the waiting process with the
+        smallest execution time to execute next. SJN, also known as Shortest Job Next (SJN).</p>
+    </section>
+    <section id="characteristics">
+        <h2>Characteristics:</h2>
+        <ul>
+        <li>Shortest Job first has the advantage of having a minimum average waiting time among all scheduling algorithms.</li>
+        <li>It is a Greedy Algorithm.</li>
+        <li>It may cause starvation if shorter processes keep coming. This problem can be solved using the concept of ageing.</li>
+        <li>It is practically infeasible as Operating System may not know burst times and therefore may not sort them. While it is</li>
+        not possible to predict execution time, several methods can be used to estimate the execution time for a job, such as a
+        weighted average of previous execution times.
+        <li>SJF can be used in specialized environments where accurate estimates of running time are available.</li>
+        </ul>
+    </section>
+    <section id="demo">
+        <h2>Demo:</h2>
+        <p>Note: Number of <b>Arrival Times</b> must be equal to the number of <b>Burst Times</b></p>
+        <form id="form">
+            <div id="field">
+                <label for="arrival_times">Enter Process Arrival Times(space separated):</label>
+                <input type="text" id="arrival_times" placeholder="Arrival Times (1 2 3 4 5)" required />
+            </div>
+            <br>
+            <div id="field">
+                <label for="burst_times">Enter Process Burst Times(space separated):</label>
+                <input type="text" id="burst_times" placeholder="Burst Times (2 3 4 5 6)" required />
+            </div>
+            <br>
+            <button>Submit</button>
+        </form>
+        <div id="table_container"></div>
+    </section>
+    <script src="./utils/shortest_job_first.js"></script>
+</body>
+
+</html>

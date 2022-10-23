@@ -1,0 +1,15 @@
+
+table{
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-spacing: 0;
+}
+thead td{
+    font-weight: 600;
+}
+td{
+    border-right: 1px solid black;
+    border-top:1px solid black;
+    text-align: center;
+    padding: 5px 10px;
+}
