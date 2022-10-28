@@ -109,7 +109,7 @@ function paintDOM(data) {
   table_container.innerHTML = "";
 
   // header element
-  let header = document.createElement("h3");
+  let header = document.createElement("h2");
   header.innerText = "Table:";
 
   //table elements

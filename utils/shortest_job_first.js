@@ -16,39 +16,54 @@ const shortest_job_first = () => {
     return;
   }
 
-  let allProcesses = arrival_times.map((item, index) =>
-    index > 0
-      ? {
-          id: `P${index + 1}`,
-          arrival_time: parseInt(item),
-          burst_time: parseInt(burst_times[index]),
-        }
-      : {}
-  );
-
+  let allProcesses = arrival_times.map((item, index) => ({
+    index: index,
+    id: `P${index + 1}`,
+    arrival_time: parseInt(item),
+    burst_time: parseInt(burst_times[index]),
+  }));
+  allProcesses.sort((a, b) => a.arrival_time - b.arrival_time);
+  let first_task = allProcesses[0];
   allProcesses.shift();
 
   let sortedAllProcess = allProcesses.sort(
     (a, b) => a.burst_time - b.burst_time
   );
 
-  sortedAllProcess.unshift({
-    id: `P1`,
-    arrival_time: parseInt(arrival_times[0]),
-    burst_time: parseInt(burst_times[0]),
-  });
+  sortedAllProcess.unshift(first_task);
 
   let data = [];
   let time = 0;
+  let i = 0;
+
+  while (sortedAllProcess.length > 0) {
+    if (sortedAllProcess[i].arrival_time <= time) {
+      time += sortedAllProcess[i].burst_time;
+      data.push({
+        index: sortedAllProcess[i].index,
+        id: sortedAllProcess[i].id,
+        arrival_time: sortedAllProcess[i].arrival_time,
+        burst_time: sortedAllProcess[i].burst_time,
+        exit_time: time,
+      });
+      sortedAllProcess.shift();
+    } else {
+      time += 1;
+    }
+  }
+
   for (let i = 0; i < sortedAllProcess.length; i++) {
     time += sortedAllProcess[i].burst_time;
     data.push({
+      index: sortedAllProcess[i].index,
       id: sortedAllProcess[i].id,
       arrival_time: sortedAllProcess[i].arrival_time,
       burst_time: sortedAllProcess[i].burst_time,
       exit_time: time,
     });
   }
+
+  data.sort((a, b) => a.index - b.index);
 
   let table_data = data.map((process) => {
     let turn_around_time = process.exit_time - process.arrival_time;
@@ -86,7 +101,7 @@ function paintDOM(data) {
   table_container.innerHTML = "";
 
   // header element
-  let header = document.createElement("h3");
+  let header = document.createElement("h2");
   header.innerText = "Table:";
 
   //table elements

@@ -1,13 +1,16 @@
 let form = document.querySelector("form");
 form.onsubmit = function (e) {
   e.preventDefault();
-  let data = round_robin();
-  paintDOM(data);
+  let { table_data, gantt_chart } = round_robin();
+  if (!Array.isArray(table_data)) return;
+  paintDOM(table_data, gantt_chart);
 };
 const round_robin = () => {
-  let arrival_time_inputs = document.querySelector("#arrival_times").value;
-  let burst_time_inputs = document.querySelector("#burst_times").value;
-  let time_quantum = document.querySelector("#time_quantum").value;
+  let arrival_time_inputs = document
+    .querySelector("#arrival_times")
+    .value.trim();
+  let burst_time_inputs = document.querySelector("#burst_times").value.trim();
+  let time_quantum = document.querySelector("#time_quantum").value.trim();
   time_quantum = parseInt(time_quantum);
   let arrival_times = arrival_time_inputs.split(" ");
   let burst_times = burst_time_inputs.split(" ");
@@ -15,18 +18,18 @@ const round_robin = () => {
     alert("Number of Arrival_Times must match number of Burst_Times");
     return;
   }
-  let time = 0;
-  const allProcesses = getObj(arrival_times, burst_times);
+  let allProcesses = getObj(arrival_times, burst_times);
+  if (!Array.isArray(allProcesses)) return;
+  allProcesses.sort((a, b) => a.arrival_time - b.arrival_time);
   let remainingProcesses = [...allProcesses];
   let q = [];
   let gantt_chart = [];
   let exit_times = {};
+  let time = allProcesses[0].arrival_time;
   let a = getProcessToAdd(remainingProcesses, time);
   q.push(...a.removed_elements);
   remainingProcesses = [...a.new_list];
-  let c = 0;
   while (q.length > 0 || remainingProcesses.length > 0) {
-    c += 1;
     if (q.length > 0) {
       let process = q[0];
       q.shift();
@@ -50,9 +53,14 @@ const round_robin = () => {
         }
         exit_times[process.id] = time;
       }
+    } else {
+      gantt_chart.push({ item: "_", time: time });
+      time += 1;
+      a = getProcessToAdd(remainingProcesses, time);
+      q.push(...a.removed_elements);
+      remainingProcesses = [...a.new_list];
     }
   }
-
   let table_data = allProcesses.map((process) => {
     let turn_around_time = exit_times[process.id] - process.arrival_time;
     let waiting_time = turn_around_time - process.burst_time;
@@ -63,7 +71,7 @@ const round_robin = () => {
       exit_time: exit_times[process.id],
     };
   });
-  return table_data;
+  return { table_data, gantt_chart };
 };
 
 let columnKeys = [
@@ -83,13 +91,35 @@ function formatKey(key) {
   return new_key;
 }
 
-function paintDOM(data) {
+function paintDOM(data, gantt_chart) {
   //dom element
   let table_container = document.querySelector("#table_container");
+  let gantt_chart_parent_container = document.querySelector(
+    "#gantt_chart_container"
+  );
   table_container.innerHTML = "";
+  gantt_chart_parent_container.innerHTML = "";
+
+  // gantt chart
+  let gantt_chart_header = document.createElement("h2");
+  gantt_chart_header.innerHTML = "Gantt Chart: ";
+  gantt_chart_parent_container.append(gantt_chart_header);
+  let gantt_chart_container = document.createElement("div");
+  gantt_chart_container.id = "gantt_chart";
+  gantt_chart.map(({ item, time }, index) => {
+    if (gantt_chart[index - 1]?.item === "_" && item === "_") {
+    } else {
+      let box = document.createElement("div");
+      box.innerHTML = item;
+      gantt_chart_container.append(box);
+    }
+  });
+  gantt_chart_parent_container.append(gantt_chart_container);
+
+  //table
 
   // header element
-  let header = document.createElement("h3");
+  let header = document.createElement("h2");
   header.innerText = "Table:";
 
   //table elements
@@ -146,6 +176,10 @@ function paintDOM(data) {
 function getObj(arrival_times, burst_times) {
   let list = [];
   for (let i = 0; i < arrival_times.length; i++) {
+    if (parseInt(burst_times[i]) <= 0) {
+      alert("Invalid Burst Time");
+      return;
+    }
     list.push({
       id: `P${i + 1}`,
       arrival_time: parseInt(arrival_times[i]),

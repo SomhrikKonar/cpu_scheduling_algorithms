@@ -1,8 +1,75 @@
-
+body{
+    background-color: blanchedalmond;
+}
+body>h1{
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+#introduction>h2,#characteristics>h2,#demo>h2,#gantt_chart_container>h2,#table_container>h2,#links_container>h2{
+    margin-bottom: 10px;
+    font-size: 30px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+#links_container>a{
+    font-size: 20px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+#introduction>p,#characteristics>p,#demo>p{
+    padding-left: 20px;
+    margin-block: 5px;
+    font-size: 20px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+#introduction li,#characteristics li,#field label{
+    margin-left: 20px;
+    font-size: 20px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin-block: 10px;
+}
+#demo>p{
+    text-decoration: underline;
+    margin-bottom: 20px;
+}
+#form{
+    margin-block: 10px;
+}
+#field input{
+    margin-left: 10px;
+    font-size: 16px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    width: 200px;
+    height: 25px;
+    padding-inline: 10px;
+}
+#form>button{
+    width: 150px;
+    height: 30px;
+    font-size: 18px;
+    margin-left:20px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+#gantt_chart{
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+    width: fit-content;
+    margin-left: 20px;
+}
+#gantt_chart>div{
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
 table{
     border-bottom: 1px solid black;
     border-left: 1px solid black;
     border-spacing: 0;
+    margin-left: 20px;
 }
 thead td{
     font-weight: 600;
@@ -12,4 +79,10 @@ td{
     border-top:1px solid black;
     text-align: center;
     padding: 5px 10px;
+    font-size: 18px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+#table_container>h4{
+    font-size: 18px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
